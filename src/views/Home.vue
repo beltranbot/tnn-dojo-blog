@@ -1,32 +1,39 @@
 <template>
   <div class="home">
-    home
-    <p ref=p>My name is {{ name }} and my age is {{ age }}</p>
-    <button @click="handleClick">click me</button>
-    <input type="text" v-model="name">
-    <button @click="age++">add 1 to age</button>
+    <h1>Home</h1>
+    <h2>Refs</h2>
+    <p>{{ ninjaOne.name }} - {{ ninjaOne.age }}</p>
+    <button @click="updateNinjaOne">update ninja one</button>
+    <h2>Reactive</h2>
+    <p>{{ ninjaTwo.name }} - {{ ninjaTwo.age }}</p>
+    <button @click="updateNinjaTwo">update ninja two</button>
   </div>
 </template>
 
 <script>
-import { ref } from '@vue/reactivity'
+import { reactive, ref } from '@vue/reactivity'
 
 export default {
   name: 'Home',
   setup() {
-    const p = ref(null)
-    const name = ref('mario')
-    const age = ref(30)
-    const handleClick= () => {
-      name.value = 'luigi'
-      age.value = 35
+    const ninjaOne = ref({
+      name: "mario",
+      age: 30
+    })
+    // you can't use primitive values with reactive
+    const ninjaTwo = reactive({
+      name: "luigi",
+      age: 35
+    })
+    const updateNinjaOne = () => {
+      ninjaOne.value.age = 40
     }
-    return {
-      name,
-      age,
-      handleClick,
-      p
+
+    const updateNinjaTwo = () => {
+      ninjaTwo.age = 45
     }
+
+    return { ninjaOne, ninjaTwo, updateNinjaOne, updateNinjaTwo }
   }
 }
 </script>
