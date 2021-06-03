@@ -11,7 +11,6 @@ export default {
     props: ["post"],
     setup(props) {
         const snippet = computed(() => props.post.body.substr(0, 100) + "...")
-
         return { snippet }
     }
 }
